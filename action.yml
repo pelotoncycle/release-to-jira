@@ -17,6 +17,10 @@ inputs:
   jira_token:
     description: JIRA user token
     required: true
+  jira_release_prefix:
+    description: A string to apply to the beginning of the github_ref when creating the release on Jira
+    required: false
+    
 runs:
   using: composite
   steps:
@@ -34,7 +38,18 @@ runs:
             && sudo apt update \
             && sudo apt install gh -y
         fi
-    
+
+    - name: Update release name
+      shell: bash
+      run: |
+        GH_REF=${{ github.ref_name }}
+        if [[ "${{ inputs.jira_release_prefix }}" ]]; then
+          PREFIX="-p ${{ inputs.jira_release_prefix }}"
+        else
+          PREFIX=""
+        fi
+        echo "RELEASE_NAME=${PREFIX}${GH_REF}" >> $GITHUB_ENV
+        
     - name: Get or create Github release
       shell: bash
       working-directory: ${{ github.action_path }}
