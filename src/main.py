@@ -4,7 +4,7 @@ from pprint import pprint
 from jira_api import add_release_to_issue, get_or_create_release
 from notes_parser import extract_changes, extract_issue_id
 
-release_name = os.environ["GITHUB_REF_NAME"]
+release_name = os.environ["RELEASE_NAME"]
 release = get_or_create_release(release_name)
 print("JIRA Release:")
 pprint(release)
