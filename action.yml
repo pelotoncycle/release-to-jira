@@ -44,7 +44,7 @@ runs:
       run: |
         GH_REF=${{ github.ref_name }}
         if [[ "${{ inputs.jira_release_prefix }}" ]]; then
-          PREFIX="-p ${{ inputs.jira_release_prefix }}"
+          PREFIX="${{ inputs.jira_release_prefix }}"
         else
           PREFIX=""
         fi
