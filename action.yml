@@ -34,6 +34,7 @@ runs:
         
     - name: Install python dependencies
       shell: bash
+      working-directory: ${{ github.action_path }}
       run: pip install -r requirements.txt
 
     - name: Install GH CLI
