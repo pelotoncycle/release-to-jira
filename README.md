@@ -14,6 +14,7 @@ This flow assumes auto-generated release notes will include JIRA issue keys. Thi
 |`jira_project`|JIRA project key.|`PRJ`|
 |`jira_user`|JIRA user with project admin permission.|`apiuser@company.com`|
 |`jira_token`|JIRA token. Managed [here](https://id.atlassian.com/manage-profile/security/api-tokens).|`abcdef12345678`|
+|`jira_release_prefix`|Optional string to add to the beginning of the github ref (tag) when naming the release in Jira|`Convert '0.1.0' into 'Foo 0.1.0'`|
 
 
 ## Usage
@@ -36,4 +37,5 @@ jobs:
           jira_project: 'PRJ'
           jira_user: 'user@company.com'
           jira_token: '${{ secrets.JIRA_TOKEN }}'
+          jira_release_prefix: 'Foo '
 ```
