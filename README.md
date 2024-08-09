@@ -2,7 +2,7 @@
 
 A GitHub action to automatically create releases on JIRA.
 
-Creates a release on Github. Uses its auto-generated description to find related JIRA issues and updates their "Fix versions" field. If a release matching the tag doesn't exist on JIRA, it will be automatically created.
+Creates a release on Jira from Github. Uses its auto-generated description in GH release notes to find related JIRA issues and updates their "Fix versions" field on the JIRA server. If a release matching the tag (plus optional prefix) doesn't exist on JIRA, it will be automatically created.
 
 This flow assumes auto-generated release notes will include JIRA issue keys. This can be achieved by including JIRA issue key in PR titles.
 
