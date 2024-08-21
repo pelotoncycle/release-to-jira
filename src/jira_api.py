@@ -2,6 +2,7 @@ import os
 
 import requests
 from requests.auth import HTTPBasicAuth
+from datetime import datetime
 
 BASE = os.environ["INPUT_JIRA_SERVER"]
 PROJECT = os.environ["INPUT_JIRA_PROJECT"]
@@ -34,9 +35,10 @@ def get_project_id():
 def get_or_create_release(release_name):
     result = get("version", {"query": release_name})
     if result["total"] == 0:
+        date = datetime.today().strftime('%Y-%m-%d')
         return post(
             "version",
-            {"name": release_name, "projectId": get_project_id()},
+            {"name": release_name, "projectId": get_project_id(), "startDate": date},
         ).json()
     elif result["total"] > 1:
         raise Exception("Found multiple releases with the same name.")
