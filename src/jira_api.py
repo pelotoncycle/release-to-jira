@@ -39,7 +39,7 @@ def get_or_create_release(content, release_name_prefix):
     result = get("version", {"query": release_name})
     if result["total"] == 0:
         date = datetime.today().strftime('%Y-%m-%d')
-        desc = "Github Release URL: " + content['url']
+        desc = "Github Release URL: " + content['html_url']
         return post(
             "version",
             {"name": release_name, "projectId": get_project_id(), "startDate": date, "description": desc},
