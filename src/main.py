@@ -1,4 +1,5 @@
 import os
+import json
 from pprint import pprint
 
 from jira_api import add_release_to_issue, get_or_create_release
