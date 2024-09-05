@@ -57,7 +57,7 @@ runs:
         else
           PREFIX=""
         fi
-        echo "RELEASE_NAME_PREFIX=${PREFIX} >> $GITHUB_ENV
+        echo "RELEASE_NAME_PREFIX=${PREFIX}" >> $GITHUB_ENV
         
     - name: Get or create Github release
       shell: bash
