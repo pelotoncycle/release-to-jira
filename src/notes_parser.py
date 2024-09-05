@@ -1,5 +1,6 @@
 import os
 import re
+import json
 
 PROJECT = os.environ["INPUT_JIRA_PROJECT"]
 ISSUE_PATTERN = rf"{PROJECT}-[0-9]+"
@@ -7,7 +8,7 @@ CHANGES_SECTION = "What's Changed"
 
 
 def _get_section(md_content, section_title):
-    return md_content.split(f"## {section_title}\n", 1)[1].split("\n\n", 1)[0]
+    return md_content.split(f"## {section_title}\r\n", 1)[1].split("\r\n\r\n", 1)[0]
 
 
 def _parse_changelist(content):
@@ -29,14 +30,15 @@ def _parse_changelist(content):
     return items
 
 
-def extract_changes():
-    with open("notes.md", "r") as f:
-        content = f.read()
-
-    if CHANGES_SECTION not in content:
+def extract_changes(content):
+    try:
+        notes = content['body']
+        if CHANGES_SECTION not in notes:
+            return []
+    except KeyError:
         return []
 
-    return _parse_changelist(_get_section(content, CHANGES_SECTION))
+    return _parse_changelist(_get_section(notes, CHANGES_SECTION))
 
 
 def extract_issue_id(change):

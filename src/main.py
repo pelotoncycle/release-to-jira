@@ -4,12 +4,17 @@ from pprint import pprint
 from jira_api import add_release_to_issue, get_or_create_release
 from notes_parser import extract_changes, extract_issue_id
 
-release_name = os.environ["RELEASE_NAME"]
-release = get_or_create_release(release_name)
+release_name_prefix = os.environ["RELEASE_NAME_PREFIX"]
+
+# Read all the content from the release
+with open("notes.json", "r") as f:
+    content = json.load(f)
+
+release = get_or_create_release(content, release_name_prefix)
 print("JIRA Release:")
 pprint(release)
 
-changes = extract_changes()
+changes = extract_changes(content)
 print("Release Issues:")
 pprint(changes)
 

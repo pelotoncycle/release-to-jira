@@ -32,13 +32,17 @@ def get_project_id():
     return get("")["id"]
 
 
-def get_or_create_release(release_name):
+def get_or_create_release(content, release_name_prefix):
+
+    release_name = release_name_prefix + content['name']
+
     result = get("version", {"query": release_name})
     if result["total"] == 0:
         date = datetime.today().strftime('%Y-%m-%d')
+        desc = "Github Release URL: " + content['url']
         return post(
             "version",
-            {"name": release_name, "projectId": get_project_id(), "startDate": date},
+            {"name": release_name, "projectId": get_project_id(), "startDate": date, "description": desc},
         ).json()
     elif result["total"] > 1:
         raise Exception("Found multiple releases with the same name.")
