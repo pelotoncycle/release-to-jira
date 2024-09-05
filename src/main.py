@@ -25,4 +25,4 @@ for change in changes:
         print("No issue id:", change["title"])
         continue
     print("Updating", issue_id)
-    add_release_to_issue(release_name, issue_id)
+    add_release_to_issue(release['name'], issue_id)
